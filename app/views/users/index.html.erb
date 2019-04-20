@@ -46,10 +46,21 @@
                   <td><%= user.last_name %></td>
                   <td><%= user.email %></td>
                   <td><%= image_tag(user.image_url.to_s) %></td>
-                  <td><%= user.user_roles.each do |f| %>
-                    <%= f.roles.name %>
-                    <%end%>
-                  </td>
+                  <!-- <td><%#= JSON.parse(user.user_roles) %> -->
+                  <!-- </td> -->
+                  <td>
+                    <%
+                      roles_arr = JSON.parse user.user_roles
+                      roles_arr.delete("")
+                      roles_arr.map!(&:to_i)
+                      if roles_arr.present?
+                        roles_string = Role.where("id in (?)", roles_arr).pluck(:name).join(",")
+                      else
+                        roles_string = "-"
+                      end
+                    %>
+                    <%= roles_string %>
+                    </td>
                 </tr>
               <% end %>
             </tbody>

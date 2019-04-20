@@ -1,6 +1,6 @@
 class Role < ApplicationRecord
 	# belongs_to :user
-	has_many :user_roles
+	# has_many :user_roles
 	def Role.active_roles
 		roles = where("is_checked=?", AdminType::NO)
 		roles_arr = []
