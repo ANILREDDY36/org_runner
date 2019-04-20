@@ -1,0 +1,25 @@
+<%= form_tag url_for(:controller => "roles", :action => "hide_roles_update") do -%>
+  <div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-info">
+      <div class="panel-heading panel-padding">
+        <h4>Hide Roles for Users</h4>
+      </div>   
+      <div class="clearfix"></div>      
+      <div class="panel-body">
+        <% @roles.each do |role| %>
+					<% checked_value = role.is_checked == AdminType::YES ? true : false %>
+					<div class="col-sm-4 form-group">
+						<label>
+							<%= check_box_tag "roles[role_#{role.id}]", "1", checked_value, {} %><%= role.name %>
+						</label>
+					</div>
+				<% end %>
+      </div>
+      <div class="form-group" align = "center">
+        <%= submit_tag "update", :class => "btn btn-info btn-xm", id: "submit" %>
+        <%= link_to 'Cancel', hide_roles_roles_path, class: "btn btn-sm btn-default" %>
+      </div>
+    </div>
+  </div>
+<%end%>

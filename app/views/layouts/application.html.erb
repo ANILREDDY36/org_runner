@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<meta name="description" content="Bootstrap Admin App + jQuery">
+		<meta name="keywords" content="app, responsive, jquery, bootstrap, dashboard, admin">
+		<title>Lotvue</title>
+		<link rel="short icon" type="image/png" href="<%=asset_path "favicon.png"%>">
+		<%= csrf_meta_tags %>
+		<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+		<%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+	</head>
+	<body>
+		<div class="wrapper">
+			<aside class="aside">
+				<div class="aside-inner">
+					<nav data-sidebar-anyclick-close="" class="sidebar">
+						<ul class="nav">
+							<li class=" ">
+								<a href="<%= users_path %>" title="Users">
+									<em class="icon-menu"></em>
+									<span>Users</span>
+								</a>
+								<!-- <ul id="roles" class="nav sidebar-subnav collapse flexcroll">
+									<li class="sidebar-subnav-header" style="padding: 4px"></li>
+									<li><%#= link_to "Active Users", users_path, {class:"sub_menu1"} %></li>
+									<li><%#= link_to "Hide Users", users_path, {class:"sub_menu1"} %></li>
+								</ul> -->
+							</li>
+
+
+							<li class=" ">
+								<a href="<%= roles_path %>" title="Roles">
+									<em class="icon-menu"></em>
+									<span>Roles</span>
+								</a>
+							</li>
+
+							<li class=" ">
+								<a href="<%= hide_roles_roles_path %>" title="Hide Roles">
+									<em class="icon-menu"></em>
+									<span>Hide Roles</span>
+								</a>
+							</li>
+
+						</ul>
+					</nav>
+				</div>
+			</aside>
+			<section>
+				<%if notice%>
+					<div class="alert alert-success" id="success-alert">
+						<button type="button" class="close" data-dismiss="alert">x</button> <%= notice %>
+					</div>
+				<%end%>
+				<%if alert%>
+					<div class="alert alert-success" id="success-alert">
+						<button type="button" class="close" data-dismiss="alert">x</button> <%= alert %>
+					</div>
+				<%end%>
+				<div id="main-contnet-id">
+					<div class="row">
+						<%= yield %>
+					</div>
+				</div>
+			</section>
+			<!-- Page footer-->
+			<footer class="text-center">
+				<span>&copy; 2019 - Lotvue</span>
+			</footer>
+		</div>
+	</body>
+</html>

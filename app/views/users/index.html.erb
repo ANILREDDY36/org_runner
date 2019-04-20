@@ -1,0 +1,66 @@
+<div>
+  <div class="col-md-12">
+    <div class="panel">
+      <div class="panel-heading panel-view">
+        <h2 class="heading" style="float:left;border:none;">Users</h2>
+        <div class="pull-right">
+          <% if params[:deleted].to_s != "true"%>
+            <%= link_to new_user_path(page: params[:page]), class: "btn btn-info" do %>
+              <i class="fa fa-plus" aria-hidden="true"></i> New User
+            <% end %>
+            <%= link_to users_path(deleted: true, undeleted_users_page: params[:page]), class: "btn btn-warning btn_style" do %>
+              <i class="fa fa-trash" aria-hidden="true"></i> Recycle Bin
+            <% end %>
+          <% else %>
+            <%= link_to users_path(page: params[:undeleted_users_page]), class: "btn btn-info" do %>
+              <i class="fa fa-reply" aria-hidden="true"></i> Users List
+            <% end %> 
+          <% end %>
+        </div>
+      </div>
+      <hr style="margin:0 15px">
+      <div class="clearfix"></div>
+      <div class="panel-body">
+        <div class="table-responsive">
+          <table id="datatable2" class="table table-hover table-bordered">
+            <thead class="bg-gray">
+              <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Image</th>
+                <th>Roles</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @users.each do |user| %>
+                <%
+                  if params[:deleted].to_s == "true"
+                    user_show_path = users_path(user, deleted: params[:deleted], page: params[:page], undeleted_users_page: params[:undeleted_users_page])
+                  else
+                    user_show_path = user_path(user, deleted: params[:deleted], page: params[:page])
+                  end
+                %>
+                <tr>
+                  <td><%= user.first_name %></td>
+                  <td><%= user.last_name %></td>
+                  <td><%= user.email %></td>
+                  <td><%= image_tag(user.image_url.to_s) %></td>
+                  <td><%= user.user_roles.each do |f| %>
+                    <%= f.roles.name %>
+                    <%end%>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+          <br>
+        </div>
+      </div>
+      <span class="text_black blink"><b><%= pluralize(@users_count, "User") %></b> </span>
+      <div class="text-center">
+      <%= will_paginate @users, renderer: BootstrapPagination::Rails %>
+      </div>
+    </div>
+  </div>
+</div>

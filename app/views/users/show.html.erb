@@ -1,0 +1,33 @@
+<div class="col-md-12">
+  <div class="panel">
+    <div class="panel-heading">
+      <h2 class="heading" style="border-bottom:1px solid #ddd">User Show</h2>
+    </div>
+    <div class="panel-body">
+      <div class="col-md-offset-2 col-md-10">
+        <dl class="dl-horizontal">
+          <dt>First Name:</dt>
+          <dd><%= @user.first_name %></dd>
+          <dt>Last Name:</dt>
+          <dd><%= @user.last_name %></dd>
+          <dt>Email:</dt>
+          <dd><%= @user.email %></dd>
+          <dt>Image: </dt>
+          <dd><%= image_tag(@user.image_url.to_s) %></dd>
+          <% if params[:deleted].to_s != "true"%>
+            <dt class="action_btn">
+              <%= link_to 'Edit', edit_user_path(@user, page: params[:page]), class: "btn btn-sm btn-info"  %>
+            </dt>
+            <dd class="action_btn">
+              <%= link_to 'Close', users_path(page: params[:page]), class: "btn btn-sm btn-default" %>
+            </dd>
+          <% else %>
+            <dd class="action_btn_delete">
+              <%= link_to 'Close', users_path(deleted: params[:deleted], page: params[:page], undeleted_users_page: params[:undeleted_users_page]), class: "btn btn-sm btn-default" %>
+            </dd>
+          <% end %>
+        </dl>
+      </div>
+    </div>
+  </div>
+</div>

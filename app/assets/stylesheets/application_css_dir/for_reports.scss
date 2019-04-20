@@ -1,0 +1,14 @@
+@charset "UTF-8";
+/*  Glyphicons  
+==================================== */
+
+@font-face {
+  font-family: 'Glyphicons Halflings';
+  src: font-url('fonts/glyphicons-halflings-regular.eot');
+  src: font-url('fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), font-url('fonts/glyphicons-halflings-regular.woff') format('woff'), font-url('fonts/glyphicons-halflings-regular.ttf') format('truetype'), font-url('fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+}
+
+.dt-buttons.btn-group, .dataTables_filter{
+  float: right;
+  margin-left:10px;
+}

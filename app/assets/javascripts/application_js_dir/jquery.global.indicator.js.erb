@@ -1,0 +1,42 @@
+// prepare the form when the DOM is ready - Other Images ind_cir.gif, ind_eli.gif, ind_square.gif
+//text-align:center;position:relative;top:21%;margin:0px auto;z-index:1000;width:300px;height:100px;background-color:#0096D9;font-size:18px;font-weight:bold;color:white;
+$(document).ready(function() { 
+
+  // Setup the ajax indicator
+  $('body').append('<div id="ajaxBusy" class="hide_for_print"><div class="hide_for_print " style="padding:20px;" id="loading_text"></div><div class="loader_container"><img src="<%=asset_path('ajax_indicator.gif')%>"/></div></div>');
+
+  $('#ajaxBusy').css({
+    display:"none",
+    margin:"0px",
+    position:"fixed",
+    backgroundColor: "transparent",
+    height:"100%",
+    fontSize:"18px",
+    fontWeight:"bold", 
+    color: "white",
+    textAlign: "center",
+    top:"0",
+    zIndex: "1000000",
+    left:"0",
+    right:"0",
+    bottom:"0",
+     width:"100%"
+  });
+});
+
+ //Ajax activity indicator bound to ajax start/stop document events
+$(document).ajaxStart(function(){
+  if($('#hide_main_indicator') && ($('#hide_main_indicator').val() != "true")){
+    if (!is_as_element) {
+      $('#ajaxBusy').show(); 
+    }
+  }  
+}).ajaxStop(function(){ 
+  $('#ajaxBusy').hide();
+});
+
+
+var is_as_element = false;
+$(".active-scaffold").bind('ajax:beforeSend', function(xhr, settings) { is_as_element = true; })
+	.bind('ajax:complete', function(xhr, status) {is_as_element = false;});
+	

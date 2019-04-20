@@ -1,0 +1,36 @@
+<div class="col-md-12">
+  <div class="panel">
+    <div class="panel-heading">
+      <h2 class="heading" style="border-bottom:1px solid #ddd;"><%= page_title%></h2>
+    </div>
+    <div class="panel-body">
+      <%= form_with(model: role, local: true) do |form| %>
+        <% if role.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(role.errors.count, "error") %> prohibited this role from being saved:</h2>
+
+            <ul>
+            <% role.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+            </ul>
+          </div>
+        <% end %>
+        <div class="col-sm-8">
+          <div class="form-group">
+            <div class="form-group">
+              <%= form.label :Role_name, class: "col-lg-3 control-label" %>
+              <%= form.text_field :name, class: "form-control" %>
+            </div>
+          </div>  
+          <div class="form-group">
+            <div class="text-center">
+              <% button_label = params[:action] == "edit" ? "Update" : "Create"%>
+                <%= form.submit "#{button_label}", class: "btn btn-sm btn-info" %>&nbsp;<%= link_to 'Cancel', roles_path(page: params[:page]), class: "btn btn-sm btn-default" %>
+            </div>
+          </div>    
+      <% end %>
+
+    </div>
+  </div>
+</div>

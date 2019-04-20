@@ -1,0 +1,72 @@
+<div class="col-md-12">
+  <div class="panel">
+    <div class="panel-heading">
+      <h2 class="heading" style="border-bottom:1px solid #ddd;"><%= page_title%></h2>
+    </div>
+    <div class="panel-body">
+      <%= form_for(user, local: true, class: "form-horizontal") do |form| %>
+      <% if user.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
+        <ul>
+          <% user.errors.full_messages.each do |message| %>
+          <li style='color:red'><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+      <% end %>
+      
+      <div class="col-sm-8">
+        <div class="form-group">
+          <%= form.label :first_name, 'First Name<span class="text-danger">*</span>'.html_safe, class: "col-lg-3 control-label" %>
+          <div class="col-lg-9">
+            <%= form.text_field :first_name, :placeholder => "Enter First Name", id: :user_first_name, required: true, class: "form-control" %>
+          </div>
+        </div>
+        <div class="form-group">
+          <%= form.label :last_name, 'Last Name<span class="text-danger">*</span>'.html_safe, class: "col-lg-3 control-label" %>
+          <div class="col-lg-9">
+            <%= form.text_field :last_name, :placeholder => "Enter Last Name", id: :user_last_name, required: true, class: "form-control" %>
+          </div>
+        </div>
+        <div class="form-group">
+          <%= form.label :email, 'Email<span class="text-danger">*</span>'.html_safe, class: "col-lg-3 control-label" %>
+          <div class="col-lg-9">
+            <%= form.email_field :email, :placeholder => "Enter Email", id: :user_email, class: "form-control",:required => true %>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <%= form.label :user_roles, 'Roles', :class => "col-lg-3 control-label" %>
+          <div class="col-lg-9">
+            <%= form.select :user_roles, active_roles, {:prompt=>"--Select Role--"}, {:id => :user_user_roles, :class => "form-control", :required =>  true, :style => "width:100%!important;", multiple: true} %>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="field">
+            <%= form.label :image %>
+            <%= form.file_field :image %>
+          </div>
+        </div>  
+
+        <%= hidden_field_tag(:row_count_dates, 0) %>
+        <span id="add_first_0">
+          <%= link_to "", "javascript: void(0)", onclick: "", :class => "fa fa-plus", :style=>"" %>
+        </span> &nbsp;&nbsp;
+        <div class="form-group">
+          <div class="text-center">
+            <%= hidden_field_tag :page, params[:page] %>
+            <% button_label = params[:action] == "edit" ? "Update" : "Create"%>
+            <%= form.submit "#{button_label}", class: "btn btn-sm btn-info" %>&nbsp;<%= link_to 'Cancel', users_path(page: params[:page]), class: "btn btn-sm btn-default" %>
+          </div>
+        </div>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  var roles = "<%= user.user_roles.blank? ? [] : JSON[user.user_roles].select(&:present?).join(",") %>".split(",");
+  $("#user_user_roles").select2().val(roles).trigger('change');
+</script>
